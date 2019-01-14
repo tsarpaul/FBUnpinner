@@ -57,7 +57,7 @@ if __name__ == "__main__":
     f = open(libcoldstart_path, "rb")
     elf = ELFFile(f)
     arch = elf.get_machine_arch()
-    if arch != "ARM" and arch != "x86": # TODO: Get arch from ELF headers
+    if arch != "ARM" and arch != "x86":
         print("[!] ERROR: Unknown architecture in libcoldstart.so, this script only supports ARM and x86!")
     func_file_offset = find_function(elf, func_name)
     f.close()
