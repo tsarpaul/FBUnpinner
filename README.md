@@ -40,8 +40,8 @@ $(phone): su
 #(phone): chmod 777 /data/data/com.facebook.katana/lib-xzs/libcoldstart.so
 ```
 
-### Want to help?
-Would be cool if somebody would automate these steps, thx :)
+### TODO
+A script to just patch an APK
 
 ### Reference
 https://serializethoughts.com/2016/08/18/bypassing-ssl-pinning-in-android-applications/
