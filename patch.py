@@ -65,7 +65,7 @@ if __name__ == "__main__":
         func_file_offset -= 1  # THUMB
         code = [0x01,0x20,0xf7,0x46]  # movs r0, #1; mov pc, lr;
     else:  # x86
-        code = [0xb8,0x01,0x00,0x00,0x00]  # mov eax, 0x1; ret;
+        code = [0xb8,0x01,0x00,0x00,0x00,0xc3,0xc3]  # mov eax, 0x1; ret;
     shutil.copyfile(libcoldstart_path, new_path)
     bytes_written = patch_file(new_path, func_file_offset, code)
     print(f"[+] {bytes_written} were overwritten!")
