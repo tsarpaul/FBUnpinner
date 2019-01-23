@@ -24,7 +24,7 @@ def find_function(elf: ELFFile, func_name: str):
             continue
         for sym in section.iter_symbols():
             if sym.name == func_name:
-                if not sym.entry.st_info.type != "STT_FUNC":
+                if sym.entry.st_info.type != "STT_FUNC":
                     print(f"[-] WARNING: Found symbol {sym.name} but as unexpected type {sym.entry.st_info.type}!")
                 func_virt_addr = sym.entry.st_value
                 break
