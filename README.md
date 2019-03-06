@@ -1,5 +1,8 @@
 # FBUnpinner
 
+SUPPORTS TLS1.3 for x86
+TODO: ARM TLS1.3 support
+
 A script to automate removing certificate pinning defense from Facebook applications.
 
 TESTED FOR THE FOLLOWING APPS:
