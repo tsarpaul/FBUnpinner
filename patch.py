@@ -119,8 +119,15 @@ class TLS13Patcher:
             
             # We look for "stable" opcodes as our signature - opcodes untouched by registers
             for i in range(len(blob)):
-                if blob[i:i+2] == b"\x74\x16":  # jz 0x18
-                    if blob[i+5:i+10] == b"\xe8\x66\x91\x00\x00":  # call 0x916e
+                # jz 0x18, mov, call, mov, mov, mov, mov, call
+                if blob[i:i+2] == b"\x74\x16" \
+                   and blob[i+2] == 0x89 \
+                   and blob[i+5] == 0xe8 \
+                   and blob[i+10] == 0x8b \
+                   and blob[i+12] == 0x8b \
+                   and blob[i+15] == 0x89 \
+                   and blob[i+19] == 0x89 \
+                   and blob[i+22] == 0xff:
                         patch_offset = text_offset + i + 2
                         break
                         
