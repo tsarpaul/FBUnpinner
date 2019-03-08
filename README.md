@@ -1,5 +1,11 @@
 # FBUnpinner
 
+SUPPORTS:<br> 
+**TLS1.3 & TLS1.2** for x86<br>
+**TLS1.2** for ARM<br>
+TODO: ARM TLS1.3 support
+<hr/>
+
 A script to automate removing certificate pinning defense from Facebook applications.
 
 TESTED FOR THE FOLLOWING APPS:
@@ -44,4 +50,5 @@ $(phone): su
 A script to just patch an APK
 
 ### Reference
-https://serializethoughts.com/2016/08/18/bypassing-ssl-pinning-in-android-applications/
+https://serializethoughts.com/2016/08/18/bypassing-ssl-pinning-in-android-applications/ <br/>
+https://plainsec.org/how-to-bypass-instagram-ssl-pinning-on-android-v78/
