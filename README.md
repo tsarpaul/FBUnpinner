@@ -45,9 +45,16 @@ $(phone): su
 #(phone): cp /sdcard/libcoldstart.so /data/data/com.facebook.katana/lib-xzs/libcoldstart.so
 #(phone): chmod 777 /data/data/com.facebook.katana/lib-xzs/libcoldstart.so
 ```
+6. (Optional) Setting up Burp to work with TLS 1.3 ("no cipher suites in common")
+```
+<path_to_jdk>/jdk-11.0.2.jdk/Contents/Home/bin/java -jar burpsuite_community.jar
+```
 
 ### TODO
 A script to just patch an APK
+
+### Working Emulator
+Nexus_6_API_24 - Google APIs Intel Atom (x86)
 
 ### Reference
 https://serializethoughts.com/2016/08/18/bypassing-ssl-pinning-in-android-applications/ <br/>
