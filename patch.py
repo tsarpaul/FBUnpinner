@@ -118,6 +118,10 @@ class TLS13Patcher:
 
             f.seek(verifier_func_addr)
             blob = f.read(func_size)
+            
+            if(func_size > 1500):  # Something probably gone wrong
+                print("[!] ERROR: Failed to patch ARM TLS 1.3 stack, something has gone wrong!")
+                exit(1)
 
             # We look for "stable" opcodes as our signature - opcodes untouched by registers
             for i in range(func_size):
