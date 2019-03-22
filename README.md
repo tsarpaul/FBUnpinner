@@ -53,8 +53,11 @@ $(phone): su
 ### TODO
 A script to just patch an APK
 
-### Working Emulator
-Nexus_6_API_24 - Google APIs Intel Atom (x86)
+### Tested Emulators
+Android Studio:
+  Nexus_6_API_24 - Google APIs Intel Atom (x86)
+Genymotion:
+  Google Nexus 5X API 26 (x86)
 
 ### Reference
 https://serializethoughts.com/2016/08/18/bypassing-ssl-pinning-in-android-applications/ <br/>
