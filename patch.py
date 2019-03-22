@@ -107,28 +107,23 @@ class TLS13Patcher:
         """
 
         patch_offset = -1
-        if self.arch == "ARM":
-            code = b"\x00\xbf" * 9  # NOP sled
-            f.seek(self.verifier_str_addr)
-            # Find function start
-            verifier_func_addr = ThumbUtils.seek_bytes(
-                self.stream, -1, ThumbUtils.fastcall_start,
-                len(ThumbUtils.fastcall_start))
-            func_size =  self.verifier_str_addr - verifier_func_addr  # Pretty close
-
-            f.seek(verifier_func_addr)
-            blob = f.read(func_size)
-            
-            if(func_size > 1500):  # Something probably gone wrong
-                print("[!] ERROR: Failed to patch ARM TLS 1.3 stack, something has gone wrong!")
-                exit(1)
+        if self.arch == "ARM":            
+            text_section = elf.get_section_by_name(".text")
+            text_offset = text_section.header.sh_offset
+            f.seek(text_offset)
+            blob = f.read()
 
             # We look for "stable" opcodes as our signature - opcodes untouched by registers
-            for i in range(func_size):
-                # LDR.W, BL
-                if blob[i+2:i+4] == b"\xd0\xf8" \
-                   and blob[i+8:i+10] == b"\x05\xf0":
-                    patch_offset =  verifier_func_addr + i
+            for i in range(len(blob)):
+                # BX ADD BL LDR{Rn,0xC} CBZ
+                if blob[i+1] == 0b01000111 \
+                   and blob[i+3] == 0xA8 \
+                   and blob[i+5] >> 3 == 0b11110 and blob[i+7] >> 3 == 0b11111 \
+                   and blob[i+9] >> 4 == 0b0110 and ((blob[i+9] << 5 & 0xFF) + blob[i+8] >> 6) == 3 \
+                   and blob[i+11] >> 4 == 0b1011:
+                    # Unconditional Branch instead of CBZ
+                    code = [blob[i+10]>>3, 0b11100000]
+                    patch_offset = text_offset + i + 10
                     break
 
         else:  # x86
