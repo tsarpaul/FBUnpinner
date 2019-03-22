@@ -56,13 +56,14 @@ class ThumbUtils:
     fastcall_end = b"\xbd\xe8\xf0\x83"  # POP.W {R4-R9,LR}
 
     @staticmethod
-    def seek_bytes(f, step, target):
+    def seek_bytes(f, step, target, size):
         addr = f.seek(0, 1)  # Get current address
         while True:
-            code = f.read(4)
+            code = f.read(size)
             if code == target:
                 return addr
-            addr = f.seek(-4 + step, 1)  # Relative seek
+            # Revert the read and move a step
+            addr = f.seek(step - size, 1)
 
 
 class TLS12Patcher:
@@ -91,10 +92,11 @@ class TLS13Patcher:
         self.arch = arch
         self.out_path = out_path
 
+        stream.seek(0)
+        self.file_content = stream.read()
+
     def find_error_strings(self):
-        self.stream.seek(0)
-        blob = self.stream.read()
-        self.verifier_str_addr = blob.find("verifier failure:".encode('utf8'))
+        self.verifier_str_addr = self.file_content.find("verifier failure:".encode('utf8'))
         if self.verifier_str_addr:
             return True
         return False
@@ -105,12 +107,28 @@ class TLS13Patcher:
         """
 
         patch_offset = -1
-        if self.arch == "ARM":  # TODO
-            print("ARM TLS1.3 patch not implemented yet!")
-            exit(1)
+        if self.arch == "ARM":
+            code = b"\x00\xbf" * 9  # NOP sled
+            f.seek(self.verifier_str_addr)
+            # Find function start
+            verifier_func_addr = ThumbUtils.seek_bytes(
+                self.stream, -1, ThumbUtils.fastcall_start,
+                len(ThumbUtils.fastcall_start))
+            func_size =  self.verifier_str_addr - verifier_func_addr  # Pretty close
+
+            f.seek(verifier_func_addr)
+            blob = f.read(func_size)
+
+            # We look for "stable" opcodes as our signature - opcodes untouched by registers
+            for i in range(func_size):
+                # LDR.W, BL
+                if blob[i+2:i+4] == b"\xd0\xf8" \
+                   and blob[i+8:i+10] == b"\x05\xf0":
+                    patch_offset =  verifier_func_addr + i
+                    break
 
         else:  # x86
-            code = [0x90 for k in range(22)]  # NOP slide
+            code = b"\x90" * 22  # NOP sled
             
             text_section = elf.get_section_by_name(".text")
             text_offset = text_section.header.sh_offset
@@ -128,6 +146,7 @@ class TLS13Patcher:
                    and blob[i+15] == 0x89 \
                    and blob[i+19] == 0x89 \
                    and blob[i+22] == 0xff:
+                        # Skip JZ
                         patch_offset = text_offset + i + 2
                         break
                         
