@@ -105,7 +105,6 @@ class TLS13Patcher:
         """
         We bypass the defense by NOPing the certificate verifier
         """
-
         patch_offset = -1
         if self.arch == "ARM":            
             text_section = elf.get_section_by_name(".text")
