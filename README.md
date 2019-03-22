@@ -56,6 +56,8 @@ A script to just patch an APK
 ### Tested Emulators
 Android Studio:
   Nexus_6_API_24 - Google APIs Intel Atom (x86)
+
+
 Genymotion:
   Google Nexus 5X API 26 (x86)
 
