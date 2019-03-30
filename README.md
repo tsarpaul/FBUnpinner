@@ -16,7 +16,7 @@ TESTED FOR THE FOLLOWING APPS:
 ### How-to
 ##### [REQUIRES ROOT]
 
-* Note: for Instagram replace lib-xzs/libcoldstart.so with lib-zstd/libliger.so
+* <b>Note: for Instagram replace lib-xzs/libcoldstart.so with lib-zstd/libliger.so</b>
 
 1. Make sure you have run the desired Facebook application atleast once - what happens is that the cert pinning library (libcoldstart.so) is unpacked from an archive embedded in the APK.
 
