@@ -1,4 +1,5 @@
 # FBUnpinner
+## Works for Instagram & Facebook
 
 SUPPORTS:<br> 
 **TLS1.3 & TLS1.2** for x86<br>
@@ -12,9 +13,12 @@ TESTED FOR THE FOLLOWING APPS:
 - com.facebook.katana (Facebook for Android)
 - com.facebook.orca (Messenger)
 - com.facebook.lasso (Lasso)
+- com.instagram.android (Instagram for Android)
 
 ### How-to
 ##### [REQUIRES ROOT]
+
+* Note: for Instagram replace lib-xzs/libcoldstart.so with lib-zstd/libliger.so
 
 1. Make sure you have run the desired Facebook application atleast once - what happens is that the cert pinning library (libcoldstart.so) is unpacked from an archive embedded in the APK.
 
