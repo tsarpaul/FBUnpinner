@@ -38,6 +38,11 @@ $(comp): adb pull /sdcard/libcoldstart.so FBUnpinner/
 ```
 $ python3 patch.py
 ```
+OR:
+```
+$ python3 patch.py libliger.so libliger-patched.so
+```
+
 
 5. Replace libcoldstart.so in the phone with the patched version:
 ```
