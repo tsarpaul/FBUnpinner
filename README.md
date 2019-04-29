@@ -3,6 +3,7 @@
 
 SUPPORTS:<br> 
 **TLS1.3 & TLS1.2** for x86/ARM32/ARM64<br>
+Instagram x86 currently does not work, feel free to open a pull request :)
 <hr/>
 
 A script to automate removing certificate pinning defense from Facebook applications.
