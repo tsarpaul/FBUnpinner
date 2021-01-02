@@ -127,7 +127,6 @@ class TLS13Patcher:
         text_section = elf.get_section_by_name(".text")
         text_offset = text_section.header.sh_offset
         f.seek(text_offset)
-        # f.seek(0x1FB4D0)
         blob = f.read()
             
         if self.arch == "ARM":            
