@@ -29,7 +29,7 @@ $(phone): su
 
 3. Pull libcoldstart.so from your desired Facebook application:
 ```
-#(phone): cp /data/data/com.facebook.katana/lib-xzs/libcoldstart.so /sdcard/libcoldstart.so
+#(phone): cp /data/data/com.facebook.katana/lib-superpack-xz/libcoldstart.so /sdcard/libcoldstart.so
 #(phone): exit
 $(phone): exit
 $(comp): adb pull /sdcard/libcoldstart.so FBUnpinner/
@@ -50,8 +50,8 @@ $ python3 patch.py libliger.so libliger-patched.so
 $(comp): adb push libcoldstart-patched.so /sdcard/libcoldstart.so
 $(comp): adb shell
 $(phone): su
-#(phone): cp /sdcard/libcoldstart.so /data/data/com.facebook.katana/lib-xzs/libcoldstart.so
-#(phone): chmod 777 /data/data/com.facebook.katana/lib-xzs/libcoldstart.so
+#(phone): cp /sdcard/libcoldstart.so /data/data/com.facebook.katana/lib-superpack-xz/libcoldstart.so
+#(phone): chmod 777 /data/data/com.facebook.katana/lib-superpack-xz/libcoldstart.so
 ```
 6. (Optional) Setting up Burp to work with TLS 1.3 ("no cipher suites in common")
 ```
