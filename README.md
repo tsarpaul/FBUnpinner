@@ -28,6 +28,9 @@ $(phone): su
 ```
 
 3. Pull libcoldstart.so from your desired Facebook application:
+
+   ​	Before version 255 path: /data/data/com.facebook.katana/lib-xzs/libcoldstart.so 
+
 ```
 #(phone): cp /data/data/com.facebook.katana/lib-superpack-xz/libcoldstart.so /sdcard/libcoldstart.so
 #(phone): exit
